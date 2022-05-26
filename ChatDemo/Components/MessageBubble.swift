@@ -25,7 +25,7 @@ struct MessageBubble: View {
             }
             
             if showTime {
-                Text("\(message.timestamp.formatted(.dateTime.hour().minute()))")
+                Text("\(message.timestamp.formatted(.dateTime.year().month().day().hour().minute()))")
                     .font(.caption)
                     .foregroundColor(.gray)
                     .padding(message.received ? .leading : .trailing, 25)
@@ -43,7 +43,9 @@ struct MessageBubble_Previews: PreviewProvider {
         MessageBubble(message: Message(
                       id: "12345",
                       text: "Preparando una nueva interfaz para el app CypherTop",
-                      received: false,
+                      received: true,
                       timestamp: Date()))
+        
+        
     }
 }

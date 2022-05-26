@@ -10,23 +10,44 @@ import SwiftUI
 struct MessageField: View {
     @EnvironmentObject var messageManager: MessagesManager
     @State private var message = ""
+    @State private var showAlert = false
+    @FocusState private var messageIsFocused: Bool
     
     var body: some View {
         HStack {
+            Image(systemName: "camera.fill")
+                .imageScale(.large)
+                .foregroundColor(.blue)
+                .padding(8)
+            
+            Image(systemName: "mic.fill")
+                .imageScale(.large)
+                .foregroundColor(.blue)
+                .padding(8)
+            
             CustomTextField(placeholder: Text("Ingrese su mensaje"), text: $message)
+                .focused($messageIsFocused)
             
             Button {
-                messageManager.sendMessage(text: message)
-                message = ""
+                if message.isEmpty {
+                    showAlert.toggle()
+                } else {
+                    messageManager.sendMessage(text: message)
+                    message = ""
+                    messageIsFocused = false
+                }
             } label: {
                 Image(systemName: "arrow.up.circle.fill")
-                    .font(.title2)
-                    .padding(10)
+                    .imageScale(.large)
+                    .foregroundColor(.blue)
+                    .padding(8)
+                    .alert(isPresented: $showAlert, content: {
+                       Alert(title: Text("Ingrese su mensaje"))
+                    })
             }
         } // HStack
-        .padding(.horizontal)
         .padding(.vertical, 10)
-        .background(Color("Gray"))
+        .background(.bar)
         .cornerRadius(20)
         .padding()
     }
