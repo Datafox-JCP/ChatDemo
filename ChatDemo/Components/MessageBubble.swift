@@ -25,7 +25,8 @@ struct MessageBubble: View {
             }
             
             if showTime {
-                Text("\(message.timestamp.formatted(.dateTime.year().month().day().hour().minute()))")
+                //Text("\(message.timestamp.formatted(.dateTime.year().month().day().hour().minute()))")
+                Text("\(message.timestamp.formatRelativeString())")
                     .font(.caption)
                     .foregroundColor(.gray)
                     .padding(message.received ? .leading : .trailing, 25)
