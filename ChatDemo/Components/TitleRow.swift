@@ -69,7 +69,6 @@ struct TitleRow: View {
             
         } // HStack
         .padding()
-        //.background(Color("LightBlue"))
         .actionSheet(isPresented: $showMenu) {
             self.actionSheet
             }

@@ -12,13 +12,42 @@ struct MessageField: View {
     @State private var message = ""
     @State private var showAlert = false
     @FocusState private var messageIsFocused: Bool
+    @State private var showAttachmentMenu = false
+    
+    var actionSheet =
+    ActionSheet(title: Text("Opciones"),
+                buttons:
+                    [.default(Text("Camara"), action: {
+                        // Función para tomar foto
+                    }),
+                     .default(Text("Galería"), action: {
+                         // Función para seleccionar de galería
+                     }),
+                     .default(Text("Audio"), action: {
+                         // Función para abrir sonidos?
+                     }),
+                     .default(Text("Archivos"), action: {
+                         // Función para cargar archivos
+                     }),
+                     .default(Text("Bóveda"), action: {
+                         // Función para seleccionar de la bóveda
+                     }),
+                     .cancel()
+                    ])
     
     var body: some View {
         HStack {
-            Image(systemName: "camera.fill")
-                .imageScale(.large)
-                .foregroundColor(.blue)
-                .padding(8)
+            Button(action: {
+                showAttachmentMenu.toggle()
+            }) {
+                Image(systemName: "paperclip.badge.ellipsis")
+                    .imageScale(.large)
+                    .foregroundColor(.blue)
+                    .padding(8)
+            }
+            .actionSheet(isPresented: $showAttachmentMenu) {
+                self.actionSheet
+                }
             
             Image(systemName: "mic.fill")
                 .imageScale(.large)
